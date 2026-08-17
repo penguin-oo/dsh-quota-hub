@@ -1,0 +1,21 @@
+# dsh-quota-hub bundle patch.
+#
+# Host rows:
+#   - the package root row: manifest carrier for the typert loader;
+#   - the quota sidecar mounted as its own top-level row (the API gateway
+#     resolves Remote receivers on the host plane, so the service must be a
+#     host-plane row like the core message-feedback service).
+# The package's dsh.client declaration adds the browser half (quota panel).
+#
+# A patch replaces the targeted row's whole `config`, so restate every key.
+
+- insert:
+    - id: quota-hub
+      name: 'dsh-quota-hub'
+
+    - id: quota-hub-stats
+      name: 'dsh-quota-hub/stats'
+      config:
+        refreshMs: 120000   # min 10s; cache window for quota fetches
+        providers: []       # extra custom providers; built-ins auto-detect by credential
+                            # example entry: { id, label, url, credential?, headers?, fields: [{key,label,path,percent?,unit?}] }

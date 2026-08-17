@@ -1,0 +1,81 @@
+{
+  "name": "dsh-quota-hub",
+  "version": "0.1.0",
+  "description": "Unified real-time quota dashboard for DeepSeek Harness: OpenCodeGo windows, DeepSeek balance, OpenRouter credits, SiliconFlow and Moonshot balances in one collapsible panel — auto-detects configured credentials, no keys leave the host.",
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "deepseek-harness",
+    "quota",
+    "balance",
+    "usage",
+    "opencode-go",
+    "openrouter",
+    "cost"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/penguin-oo/dsh-quota-hub.git"
+  },
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": {
+      "default": "./lib/index.js"
+    },
+    "./client": {
+      "default": "./lib/client.js"
+    },
+    "./stats": {
+      "default": "./lib/quota-service.js"
+    },
+    "./typert": {
+      "default": "./lib/typert.host.js"
+    },
+    "./remote": {
+      "default": "./lib/typert.remote-client.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib/index.js",
+    "lib/quota-service.js",
+    "lib/adapters.js",
+    "lib/schemas.js",
+    "lib/typert.host.js",
+    "lib/typert.remote-client.js",
+    "lib/client.js",
+    "cordis.patch.yml",
+    "README.md",
+    "README.zh.md"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "inject": [
+        "@deepseek-ai/dsh-client-runtime",
+        "@deepseek-ai/dsh-api-remotes"
+      ]
+    }
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "^4.0.1",
+    "@deepseek-ai/dsh-typert-protocol": "^0.1.0-rc.6"
+  },
+  "dependencies": {
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@deepseek-ai/dsh-typert-loader": "^0.1.0-rc.6",
+    "esbuild": "^0.25.12",
+    "puppeteer-core": "^25.7.0"
+  },
+  "scripts": {
+    "build": "node scripts/build-client.mjs",
+    "smoke": "node scripts/smoke.mjs"
+  }
+}
