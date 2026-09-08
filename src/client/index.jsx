@@ -165,17 +165,30 @@ async function apply(ctx) {
 
   let cache = { at: 0, providers: [] };
   const fetchSnapshot = async () => {
-    const remote = ctx.get("remote.quotaHub");
-    const carried = await remote.snapshot();
-    const result = carried?.ok ? carried.value : null;
-    if (result?.ok) {
-      cache = { at: Date.now(), providers: result.value?.providers ?? [] };
-      notify();
+    try {
+      const remote = ctx.get("remote.quotaHub");
+      const carried = await remote.snapshot();
+      const result = carried?.ok ? carried.value : null;
+      if (result?.ok) {
+        cache = { at: Date.now(), providers: result.value?.providers ?? [] };
+        notify();
+      }
+    } catch {
+      // Transient failure: keep the last snapshot; the next poll retries.
     }
     return cache;
   };
   void fetchSnapshot();
-  setInterval(() => void fetchSnapshot(), POLL_MS);
+  // Poll on an interval owned by this apply()'s lifecycle: the effect cleanup
+  // clears it on dispose/re-apply, so hot reloads never leave an orphaned
+  // timer polling the host Remote forever.
+  ctx.effect(
+    () => {
+      const timer = setInterval(() => void fetchSnapshot(), POLL_MS);
+      return () => clearInterval(timer);
+    },
+    "quota-hub: poll interval",
+  );
 
   ctx.slots.inject("shell.overlay", () => {
     const dispose = ctx.slots.register(
