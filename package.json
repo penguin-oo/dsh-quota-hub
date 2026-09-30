@@ -1,6 +1,6 @@
 {
   "name": "dsh-quota-hub",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Unified real-time quota dashboard for DeepSeek Harness: OpenCodeGo windows, DeepSeek balance, OpenRouter credits, SiliconFlow and Moonshot balances in one collapsible panel — auto-detects configured credentials, no keys leave the host.",
   "keywords": [
     "dsh",
