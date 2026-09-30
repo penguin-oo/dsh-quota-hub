@@ -1,6 +1,6 @@
 {
   "name": "dsh-quota-hub",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Unified real-time quota dashboard for DeepSeek Harness: OpenCodeGo windows, DeepSeek balance, OpenRouter credits, SiliconFlow and Moonshot balances in one collapsible panel — auto-detects configured credentials, no keys leave the host.",
   "keywords": [
     "dsh",
@@ -57,7 +57,6 @@
     "client": {
       "platform": "web",
       "inject": [
-        "@deepseek-ai/dsh-client-runtime",
         "@deepseek-ai/dsh-api-remotes"
       ]
     },
@@ -65,19 +64,22 @@
       "dshReleases": {
         "0.1.2-rc.1": "compatible",
         "0.1.3-alpha.1": "compatible",
-        "0.1.3-alpha.2": "compatible"
+        "0.1.3-alpha.2": "compatible",
+        "0.2.0-rc.1": "compatible",
+        "0.2.0-rc.2": "compatible"
       }
     }
   },
   "peerDependencies": {
     "@deepseek-ai/cordis": "^4.0.1",
-    "@deepseek-ai/dsh-typert-protocol": "^0.1.0-rc.6"
+    "@deepseek-ai/dsh-typert-protocol": "^0.1.0-rc.6 || ^0.2.0-rc.1"
   },
   "dependencies": {
     "zod": "^4.4.3"
   },
   "devDependencies": {
-    "@deepseek-ai/dsh-typert-loader": "^0.1.0-rc.6",
+    "@deepseek-ai/dsh-typert-loader": "^0.1.0-rc.6 || ^0.2.0-rc.1",
+    "@deepseek-ai/dsh-typert-protocol": "^0.1.0-rc.6 || ^0.2.0-rc.1",
     "esbuild": "^0.25.12",
     "puppeteer-core": "^25.7.0"
   },
